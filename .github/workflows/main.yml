@@ -9,7 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - name: Download PDF file
-        env: URL: https://archive.org/download/LingaPuranaJ.L.ShastriPart1/Linga%20Purana%20-%20J.L.Shastri%20-%20Part%201.pdf
+        env: 
+         URL: https://archive.org/download/LingaPuranaJ.L.ShastriPart1/Linga%20Purana%20-%20J.L.Shastri%20-%20Part%201.pdf
         run: curl -o ocr.pdf -L $URL
       - name: Install Tesseract OCR
         run: |
