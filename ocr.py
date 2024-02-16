@@ -4,7 +4,7 @@ from reportlab.pdfgen import canvas
 import os
 
 # Get the URL of the PDF file from the environment variable
-URL = os.environ["PDF_URL"]
+URL = os.environ["URL"]
 
 # Download the PDF file and save it as ocr.pdf in the current directory
 response = requests.get(URL)
