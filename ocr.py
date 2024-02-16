@@ -3,7 +3,7 @@ from pdf2image import convert_from_path
 from reportlab.pdfgen import canvas
 import logging
 logging.basicConfig(level=logging.INFO,format="%(asctime)s - %(levelname)s - %(message)s")
-URL=https://archive.org/download/the-srimad-devi-bhagawatam-swami-vijnanananda/The%20Srimad%20Devi%20Bhagawatam%20-%20Swami%20Vijnanananda.pdf
+URL="https://archive.org/download/the-srimad-devi-bhagawatam-swami-vijnanananda/The%20Srimad%20Devi%20Bhagawatam%20-%20Swami%20Vijnanananda.pdf"
 response=requests.get(URL)
 if response.status_code==200:
     logging.info("Successfully downloaded the PDF file from %s",URL)
