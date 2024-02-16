@@ -1,0 +1,31 @@
+name: Run Python code and generate PDF
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  URL: "https://archive.org/download/LingaPuranaJ.L.ShastriPart1/Linga%20Purana%20-%20J.L.Shastri%20-%20Part%201.pdf" 
+
+jobs:
+  run-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@main 
+      - name: Set up Python
+        uses: actions/setup-python@main
+        with:
+          python-version: "3.x" 
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pytesseract pdf2image reportlab
+      - name: Run Python code
+        run: python code.py
+      - name: Upload PDF file as artifact
+        uses: actions/upload-artifact@main 
+        with:
+          name: output.pdf
+          path: output.pdf
+          
