@@ -9,7 +9,7 @@ if response.status_code==200:
     logging.info("Successfully downloaded the PDF file from %s",URL)
     open("ocr.pdf","wb").write(response.content)
     logging.info("Successfully opened the file ocr.pdf")
-    images=convert_from_path("ocr.pdf", first_page=1, last_page=13)
+    images=convert_from_path("ocr.pdf", first_page=1, last_page=101)
     logging.info("Successfully converted the PDF file into images")
     c=canvas.Canvas("output.pdf")
     for i,image in enumerate(images):
