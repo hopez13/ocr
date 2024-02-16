@@ -14,9 +14,7 @@ jobs:
           python-version: "3.12"
       - name: Install and remove dependencies
         run: |
-          apt-get update && apt-get install -y software-properties-common 
-          add-apt-repository universe
-          apt-get install -y tesseract-ocr
-      - name: Print and list tesseract version and languages
+          apt-get update && apt-get install -y --no-install-recommends tesseract-ocr
+      - name: Tesseract Commands 
         run: tesseract -v && tesseract --list-langs
         
