@@ -15,7 +15,7 @@ jobs:
       - name: Install Dependencies
         run: |
           apt-get update && apt-get install -y --no-install-recommends tesseract-ocr && \
-          pip install pytesseract
+          pip install --upgrade pytesseract os requests pdf2image reportlab
       - name: Tesseract Commands 
         run: tesseract -v && tesseract --list-lang
       - name: Run Code
