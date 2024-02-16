@@ -1,7 +1,6 @@
 name: OCR Workflow
 
 on: [push, pull_request]
-
 jobs:
   ocr:
     runs-on: ubuntu-latest
@@ -13,11 +12,11 @@ jobs:
         uses: actions/setup-python@main
         with:
           python-version: "3.12"
-      - name: Install dependencies
+      - name: Install and remove dependencies
         run: |
           apt-get update && apt-get install -y software-properties-common 
           add-apt-repository universe
-          apt-get install -y tesseract-ocr tesseract-dev
-      - name: List supported languages
-        run: tesseract --list-langs
+          apt-get install -y tesseract-ocr
+      - name: Print and list tesseract version and languages
+        run: tesseract -v && tesseract --list-langs
         
