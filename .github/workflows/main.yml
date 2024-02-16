@@ -14,10 +14,10 @@ jobs:
           python-version: "3.12"
       - name: Install Dependencies
         run: |
-          apt-get update && apt-get install -y --no-install-recommends tesseract-ocr && \
-          /bin/pip install --upgrade pytesseract os requests pdf2image reportlab
+          apt-get update && apt-get install -y --no-install-recommends tesseract-ocr
+          ${{ env.pythonLocation }} /bin/pip install --upgrade pytesseract os requests pdf2image reportlab
       - name: Tesseract Commands 
         run: tesseract -v && tesseract --list-lang
       - name: Run Code
-        run: /bin/python3 ocr.py
+        run: ${{ env.pythonLocation }} /bin/python3 ocr.py
         
