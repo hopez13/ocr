@@ -11,6 +11,8 @@ jobs:
   run-code:
     runs-on: ubuntu-latest
     steps:
+      - name: Install poppler
+        run: sudo apt-get install poppler-utils
       - name: Checkout repository
         uses: actions/checkout@main 
       - name: Set up Python
