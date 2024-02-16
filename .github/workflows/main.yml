@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Setup
         run: |
-           apt -y update && apt -y upgrade && apt install -y  sudo
+           apt -y update && apt -y upgrade && apt install -y  sudo software-properties-common
            sudo add-apt-repository ppa:alex-p/tesseract-ocr-devel
            sudo apt -y install tesseract-ocr curl
       - uses: actions/checkout@main
