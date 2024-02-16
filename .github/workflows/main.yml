@@ -7,17 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     container: ubuntu:23.10
     steps:
+      - name: Setup
+        run: |
+          sudo add-apt-repository ppa:alex-p/tesseract-ocr-devel
+          sudo apt update
+          sudo apt upgrade
+          sudo apt install tesseract-ocr curl
       - uses: actions/checkout@main
       - name: Download PDF file
         env: 
          URL: https://archive.org/download/LingaPuranaJ.L.ShastriPart1/Linga%20Purana%20-%20J.L.Shastri%20-%20Part%201.pdf
         run: curl -o ocr.pdf -L $URL
-      - name: Install Tesseract OCR
-        run: |
-          sudo add-apt-repository ppa:alex-p/tesseract-ocr-devel
-          sudo apt update
-          sudo apt upgrade
-          sudo apt install tesseract-ocr
       - name: Run Tesseract OCR
         run: tesseract ocr.pdf output -l eng txt pdf
       - name: Upload PDF file as artifact
