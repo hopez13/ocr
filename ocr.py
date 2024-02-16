@@ -3,7 +3,6 @@ from pdf2image import convert_from_path
 from reportlab.pdfgen import canvas
 import logging
 logging.basicConfig(level=logging.INFO,format="%(asctime)s - %(levelname)s - %(message)s")
-def print_progress(progress):print(f"Progress: {progress}%")
 URL=os.environ["URL"]
 response=requests.get(URL)
 if response.status_code==200:
@@ -15,7 +14,7 @@ if response.status_code==200:
     c=canvas.Canvas("output.pdf")
     for i,image in enumerate(images):
         logging.info("Processing page %d",i+1)
-        text=pytesseract.image_to_string(image,progress_callback=print_progress)
+        text=pytesseract.image_to_string(image)
         c.drawString(10,800,f"Page {i+1}:")
         c.drawCentredString(300,750,text)
         c.showPage()
