@@ -9,9 +9,9 @@ jobs:
     steps:
       - name: Setup
         run: |
-           apt update && apt upgrade && apt install sudo
+           apt -y update && apt -y upgrade && apt install -y  sudo
            sudo add-apt-repository ppa:alex-p/tesseract-ocr-devel
-           sudo apt install tesseract-ocr curl
+           sudo apt -y install tesseract-ocr curl
       - uses: actions/checkout@main
       - name: Download PDF file
         env: 
