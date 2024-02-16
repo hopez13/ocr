@@ -20,4 +20,9 @@ jobs:
         run: tesseract -v && tesseract --list-langs
       - name: Run Code
         run: python3 ocr.py
-        
+      - name: Upload as artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: file.pdf
+          path: output.pdf
+          
