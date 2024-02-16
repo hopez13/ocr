@@ -12,9 +12,12 @@ jobs:
         uses: actions/setup-python@main
         with:
           python-version: "3.12"
-      - name: Install and remove dependencies
+      - name: Install Dependencies
         run: |
-          apt-get update && apt-get install -y --no-install-recommends tesseract-ocr
+          apt-get update && apt-get install -y --no-install-recommends tesseract-ocr && \
+          pip install pytesseract
       - name: Tesseract Commands 
-        run: tesseract -v && tesseract --list-langs
-        
+        run: tesseract -v && tesseract --list-lang
+      - name: Run Code
+        run: python3 ocr.py
+    
