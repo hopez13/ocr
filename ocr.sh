@@ -2,7 +2,7 @@
 
 # Set logging level and format
 LOG_LEVEL="INFO"
-LOG_FORMAT="%(asctime)s - %(levelname)s - %(message)s"
+LOG_FORMAT="[%Y-%m-%d %H:%M:%S] - %(levelname)s - %(message)s"
 
 # Define a function to log messages
 log() {
