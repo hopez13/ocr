@@ -13,9 +13,10 @@ if response.status_code==200:
     with open("output.pdf", "wb") as f:
         for i,image in enumerate(images):
             logging.info("Processing page %d",i+1)
-            pdf = pytesseract.image_to_pdf_or_hocr(image, extension='pdf', config='-l 3')
+            pdf = pytesseract.image_to_pdf_or_hocr(image, extension='pdf', config='-l eng')
             f.write(pdf)
             logging.info("Finished processing page %d",i+1)
     logging.info("Saved the output PDF file as output.pdf")
 else:
     logging.error("Could not download the PDF file from %s. Status code: %d",URL,response.status_code)
+    
