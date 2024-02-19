@@ -10,13 +10,12 @@ if response.status_code==200:
     logging.info("Successfully opened the file ocr.pdf")
     images=convert_from_path("ocr.pdf", first_page=1, last_page=13)
     logging.info("Successfully converted the PDF file into images")
-    with open("output.pdf", "wb") as f: # open a binary file for writing
+    with open("output.pdf", "wb") as f:
         for i,image in enumerate(images):
             logging.info("Processing page %d",i+1)
-            pdf = pytesseract.image_to_pdf_or_hocr(image, extension='pdf') # get the PDF output
-            f.write(pdf) # write the PDF output to the file
+            pdf = pytesseract.image_to_pdf_or_hocr(image, extension='pdf', config='-l 5')
+            f.write(pdf)
             logging.info("Finished processing page %d",i+1)
     logging.info("Saved the output PDF file as output.pdf")
 else:
     logging.error("Could not download the PDF file from %s. Status code: %d",URL,response.status_code)
-                         
