@@ -1,16 +1,9 @@
 #!/bin/bash
 
-# Set logging level and format
-LOG_LEVEL="INFO"
-LOG_FORMAT="[%Y-%m-%d %H:%M:%S] - %(levelname)s - %(message)s"
-
-# Define a function to log messages
 log() {
   local level="$1"
   local message="$2"
-  if [ "$level" = "$LOG_LEVEL" ] || [ "$level" = "ERROR" ]; then
-    printf "$LOG_FORMAT\n" "$(date)" "$level" "$message"
-  fi
+  printf "$level" "$message"
 }
 
 # Define the URL of the PDF file
