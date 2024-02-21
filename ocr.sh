@@ -8,25 +8,10 @@ log() {
 
 URL="https://archive.org/download/the-srimad-devi-bhagawatam-swami-vijnanananda/The%20Srimad%20Devi%20Bhagawatam%20-%20Swami%20Vijnanananda.pdf"
 
-curl -o ocr.pdf "$URL"
+curl -o ocr.pdf "$URL" && log "INFO" "Successfully downloaded the PDF file from $URL" || { log "ERROR" "Could not download the PDF file from $URL. Status code: $?" ; exit 1 ; }
 
-status=$?
-if [ $status -eq 0 ]; then
-  log "INFO" "Successfully downloaded the PDF file from $URL"
-else
-  log "ERROR" "Could not download the PDF file from $URL. Status code: $status"
-  exit 1
-fi
+pdfimages -png -f 1 -l 10 ocr.pdf ocr && log "INFO" "Successfully extracted images from the PDF file" || { log "ERROR" "Could not extract images from the PDF file. Status code: $?" ; exit 1 ; }
 
-pdfimages -png -f 1 -l 10 ocr.pdf ocr
-
-status=$?
-if [ $status -eq 0 ]; then
-  log "INFO" "Successfully extracted images from the PDF file"
-else
-  log "ERROR" "Could not extract images from the PDF file. Status code: $status"
-  exit 1
-fi
 
 touch output.pdf
 
