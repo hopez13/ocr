@@ -16,7 +16,7 @@ else
   exit 1
 fi
 
-pdfimages -png -f 1 -l 10 ocr.pdf ocr
+pdfimages -png -f 1 -l 51 ocr.pdf ocr
 if [ $? -eq 0 ]; then
   log "INFO" "Successfully extracted images from the PDF file"
 else
