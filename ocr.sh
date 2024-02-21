@@ -6,13 +6,10 @@ log() {
   printf "$level" "$message"
 }
 
-# Define the URL of the PDF file
 URL="https://archive.org/download/the-srimad-devi-bhagawatam-swami-vijnanananda/The%20Srimad%20Devi%20Bhagawatam%20-%20Swami%20Vijnanananda.pdf"
 
-# Download the PDF file using curl
 curl -o ocr.pdf "$URL"
 
-# Check the status code of the download
 status=$?
 if [ $status -eq 0 ]; then
   log "INFO" "Successfully downloaded the PDF file from $URL"
@@ -21,46 +18,26 @@ else
   exit 1
 fi
 
-# Convert the PDF file into images using ImageMagick
-convert -density 300 ocr.pdf -depth 8 -strip -background white -alpha off ocr.png
+pdfimages -png -r 300 -f 1 -l 10 ocr.pdf ocr
 
-# Check the status code of the conversion
 status=$?
 if [ $status -eq 0 ]; then
-  log "INFO" "Successfully converted the PDF file into images"
+  log "INFO" "Successfully extracted images from the PDF file"
 else
-  log "ERROR" "Could not convert the PDF file into images. Status code: $status"
+  log "ERROR" "Could not extract images from the PDF file. Status code: $status"
   exit 1
 fi
 
-# Create an empty output PDF file
 touch output.pdf
 
-# Loop through the images and preprocess them for OCR using ImageMagick
 for image in ocr*.png; do
-  # Get the page number from the image name
   page=${image#ocr-}
   page=${page%.png}
 
-  # Log the processing of the page
   log "INFO" "Processing page $page"
 
-  # Preprocess the image for OCR using ImageMagick
-  convert "$image" -colorspace gray -threshold 50% -morphology open diamond:1 -deskew 40% -density 300 "$image"
-
-  # Check the status code of the preprocessing
-  status=$?
-  if [ $status -eq 0 ]; then
-    log "INFO" "Finished preprocessing page $page"
-  else
-    log "ERROR" "Could not preprocess page $page. Status code: $status"
-    exit 1
-  fi
-
-  # Convert the image to PDF using tesseract-ocr
   tesseract "$image" "$image" -l eng pdf
 
-  # Check the status code of the conversion
   status=$?
   if [ $status -eq 0 ]; then
     log "INFO" "Finished converting page $page to PDF"
@@ -69,9 +46,7 @@ for image in ocr*.png; do
     exit 1
   fi
 
-  # Append the PDF file to the output PDF file
   pdftk output.pdf "$image".pdf cat output output.pdf
 done
 
-# Log the saving of the output PDF file
 log "INFO" "Saved the output PDF file as output.pdf"
