@@ -24,8 +24,10 @@ else
   exit 1
 fi
 
-touch output.pdf
+# Initialize an empty array to store the converted PDF files
+converted=()
 
+# Loop through the extracted images and convert them to PDF using tesseract
 for image in ocr*.png; do
   page=${image#ocr-}
   page=${page%.png}
@@ -36,12 +38,19 @@ for image in ocr*.png; do
 
   if [ $? -eq 0 ]; then
     log "INFO" "Finished converting page $page to PDF"
+    # Append the converted PDF file to the array
+    converted+=("$image".pdf)
   else
     log "ERROR" "Could not convert page $page to PDF. Status code: $?"
     exit 1
   fi
-
-  pdftk output.pdf "$image".pdf cat output output.pdf
 done
 
-log "INFO" "Saved the output PDF file as output.pdf"
+# Make a single PDF file from the converted PDF files using pdftk
+pdftk "${converted[@]}" cat output output.pdf
+if [ $? -eq 0 ]; then
+  log "INFO" "Saved the output PDF file as output.pdf"
+else
+  log "ERROR" "Could not make a single PDF file from the converted PDF files. Status code: $?"
+  exit 1
+fi
