@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@main
       - name: Install Dependencies
         run: |
-          apt-get update &&  apt-get install -y --no-install-recommends curl pdftk poppler-utils tesseract-ocr
+          apt-get update &&  apt-get install -y --no-install-recommends wget pdftk poppler-utils tesseract-ocr
       - name: Tesseract Commands 
         run: tesseract -v && tesseract --list-langs
       - name: Run Code
