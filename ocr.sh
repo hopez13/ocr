@@ -18,7 +18,7 @@ else
   exit 1
 fi
 
-pdfimages -png -r 300 -f 1 -l 10 ocr.pdf ocr
+pdfimages -png -f 1 -l 10 ocr.pdf ocr
 
 status=$?
 if [ $status -eq 0 ]; then
