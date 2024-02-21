@@ -3,12 +3,9 @@
 log() {
   local level="$1"
   local message="$2"
-  # Use the -e option to enable interpretation of backslash escapes
-  # Use the \n escape sequence to print a newline after the message
-  printf -e "$level: $message\n"
+  echo -e "$level: $message\n"
 }
 
-# The rest of the code is unchanged
 URL="https://archive.org/download/the-srimad-devi-bhagawatam-swami-vijnanananda/The%20Srimad%20Devi%20Bhagawatam%20-%20Swami%20Vijnanananda.pdf"
 
 wget -O ocr.pdf "$URL"
